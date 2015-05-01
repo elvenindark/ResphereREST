@@ -1,0 +1,156 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.resphere.server.model;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+/**
+ *
+ * @author hp
+ */
+@Entity
+@Table(name = "indicadorclave")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Indicadorclave.findAll", query = "SELECT i FROM Indicadorclave i"),
+    @NamedQuery(name = "Indicadorclave.findByIdindicadorclave", query = "SELECT i FROM Indicadorclave i WHERE i.idindicadorclave = :idindicadorclave"),
+    @NamedQuery(name = "Indicadorclave.findByIdnormaesencial", query = "SELECT i FROM Indicadorclave i WHERE i.idnormaesencial.idnormaesencial =:idnormaesencial"),
+    @NamedQuery(name = "Indicadorclave.findByIdsectorhumanitario", query = "SELECT i FROM Indicadorclave i WHERE i.idsectorhumanitario.idsectorhumanitario =:idsectorhumanitario"),
+    @NamedQuery(name = "Indicadorclave.findByIdnormaminima", query = "SELECT i FROM Indicadorclave i WHERE i.idnormaminima.idnormaminima =:idnormaminima"),
+    @NamedQuery(name = "Indicadorclave.findByIndicadorclave", query = "SELECT i FROM Indicadorclave i WHERE i.indicadorclave = :indicadorclave")})
+public class Indicadorclave implements Serializable {
+    //@OneToMany(mappedBy = "idindicadorclave")
+    //private List<Respuestahumanitaria> respuestahumanitariaList;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "idindicadorclave")
+    private String idindicadorclave;
+    @Size(max = 2147483647)
+    @Column(name = "indicadorclave")
+    private String indicadorclave;
+    @JoinColumn(name = "idsectorhumanitario", referencedColumnName = "idsectorhumanitario")
+    @ManyToOne
+    private Sectorhumanitario idsectorhumanitario;
+    @JoinColumn(name = "idnormaminima", referencedColumnName = "idnormaminima")
+    @ManyToOne
+    private Normaminima idnormaminima;
+    @JoinColumn(name = "idnormaesencial", referencedColumnName = "idnormaesencial")
+    @ManyToOne
+    private Normaesencial idnormaesencial;
+
+    public Indicadorclave() {
+    }
+
+    public Indicadorclave(String idindicadorclave) {
+        this.idindicadorclave = idindicadorclave;
+    }
+
+    public String getIdindicadorclave() {
+        return idindicadorclave;
+    }
+
+    public void setIdindicadorclave(String idindicadorclave) {
+        this.idindicadorclave = idindicadorclave;
+    }
+
+    public String getIndicadorclave() {
+        return indicadorclave;
+    }
+
+    public void setIndicadorclave(String indicadorclave) {
+        this.indicadorclave = indicadorclave;
+    }
+
+    public Sectorhumanitario getIdsectorhumanitario() {
+        return idsectorhumanitario;
+    }
+
+    public void setIdsectorhumanitario(Sectorhumanitario idsectorhumanitario) {
+        this.idsectorhumanitario = idsectorhumanitario;
+    }
+
+    public Normaminima getIdnormaminima() {
+        return idnormaminima;
+    }
+
+    public void setIdnormaminima(Normaminima idnormaminima) {
+        this.idnormaminima = idnormaminima;
+    }
+
+    public Normaesencial getIdnormaesencial() {
+        return idnormaesencial;
+    }
+
+    public void setIdnormaesencial(Normaesencial idnormaesencial) {
+        this.idnormaesencial = idnormaesencial;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idindicadorclave != null ? idindicadorclave.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Indicadorclave)) {
+            return false;
+        }
+        Indicadorclave other = (Indicadorclave) object;
+        if ((this.idindicadorclave == null && other.idindicadorclave != null) || (this.idindicadorclave != null && !this.idindicadorclave.equals(other.idindicadorclave))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.resphere.server.model.Indicadorclave[ idindicadorclave=" + idindicadorclave + " ]";
+    }
+
+    /*@XmlTransient
+    @JsonIgnore
+    public List<String> getRespuestahumanitariaList() {
+        return respuestahumanitariaList;
+    }
+
+    public void setRespuestahumanitariaList(List<String> respuestahumanitariaList) {
+        this.respuestahumanitariaList = respuestahumanitariaList;
+    }*/
+
+    /*@XmlTransient
+    @JsonIgnore
+    public List<Respuestahumanitaria> getRespuestahumanitariaList() {
+        return respuestahumanitariaList;
+    }
+
+    public void setRespuestahumanitariaList(List<Respuestahumanitaria> respuestahumanitariaList) {
+        this.respuestahumanitariaList = respuestahumanitariaList;
+    }*/
+}
