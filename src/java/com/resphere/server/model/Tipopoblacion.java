@@ -7,21 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -35,10 +30,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Tipopoblacion.findByIdtipopoblacion", query = "SELECT t FROM Tipopoblacion t WHERE t.idtipopoblacion = :idtipopoblacion"),
     @NamedQuery(name = "Tipopoblacion.findByTipopoblacion", query = "SELECT t FROM Tipopoblacion t WHERE t.tipopoblacion = :tipopoblacion")})
 public class Tipopoblacion implements Serializable {
-    @OneToMany(mappedBy = "idtipopoblacion")
-    private List<Equipo> equipoList;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipopoblacion")
-//    private List<Mediovida> mediovidaList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -51,8 +42,6 @@ public class Tipopoblacion implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "tipopoblacion")
     private String tipopoblacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipopoblacion")
-    private List<Poblacion> poblacionList;
 
     public Tipopoblacion() {
     }
@@ -82,15 +71,6 @@ public class Tipopoblacion implements Serializable {
         this.tipopoblacion = tipopoblacion;
     }
 
-    @XmlTransient
-    public List<Poblacion> getPoblacionList() {
-        return poblacionList;
-    }
-
-    public void setPoblacionList(List<Poblacion> poblacionList) {
-        this.poblacionList = poblacionList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -114,25 +94,6 @@ public class Tipopoblacion implements Serializable {
     @Override
     public String toString() {
         return "com.resphere.server.model.Tipopoblacion[ idtipopoblacion=" + idtipopoblacion + " ]";
-    }
-
-//    @XmlTransient
-//    public List<Mediovida> getMediovidaList() {
-//        return mediovidaList;
-//    }
-//
-//    public void setMediovidaList(List<Mediovida> mediovidaList) {
-//        this.mediovidaList = mediovidaList;
-//    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Equipo> getEquipoList() {
-        return equipoList;
-    }
-
-    public void setEquipoList(List<Equipo> equipoList) {
-        this.equipoList = equipoList;
     }
     
 }

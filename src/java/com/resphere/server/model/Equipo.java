@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -34,7 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Equipo.findByOrganizacion", query = "SELECT e FROM Equipo e WHERE e.organizacion = :organizacion"),
     @NamedQuery(name = "Equipo.findByTelefono", query = "SELECT e FROM Equipo e WHERE e.telefono = :telefono"),
     @NamedQuery(name = "Equipo.findByEmail", query = "SELECT e FROM Equipo e WHERE e.email = :email"),
-    @NamedQuery(name = "Equipo.findByIdevento", query = "SELECT e FROM Equipo e WHERE e.idevento = :idevento")})
+    @NamedQuery(name = "Equipo.findByIdevento", query = "SELECT e FROM Equipo e WHERE e.idevento = :idevento"),
+    @NamedQuery(name = "Equipo.findByIdtipopoblacion", query = "SELECT e FROM Equipo e WHERE e.idtipopoblacion = :idtipopoblacion"),
+    @NamedQuery(name = "Equipo.findByIdroltecnico", query = "SELECT e FROM Equipo e WHERE e.idroltecnico = :idroltecnico")})
 public class Equipo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -56,15 +55,13 @@ public class Equipo implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idtipopoblacion", referencedColumnName = "idtipopoblacion")
-    @ManyToOne
-    private Tipopoblacion idtipopoblacion;
-    @JoinColumn(name = "idroltecnico", referencedColumnName = "idroltecnico")
-    @ManyToOne
-    private Roltecnico idroltecnico;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Size(max = 2147483647)
+    @Column(name = "idtipopoblacion")
+    private String idtipopoblacion;
+    @Size(max = 2147483647)
+    @Column(name = "idroltecnico")
+    private String idroltecnico;
+    
 
     public Equipo() {
     }
@@ -113,28 +110,20 @@ public class Equipo implements Serializable {
         this.idevento = idevento;
     }
 
-    public Tipopoblacion getIdtipopoblacion() {
+    public String getIdtipopoblacion() {
         return idtipopoblacion;
     }
 
-    public void setIdtipopoblacion(Tipopoblacion idtipopoblacion) {
+    public void setIdtipopoblacion(String idtipopoblacion) {
         this.idtipopoblacion = idtipopoblacion;
     }
 
-    public Roltecnico getIdroltecnico() {
+    public String getIdroltecnico() {
         return idroltecnico;
     }
 
-    public void setIdroltecnico(Roltecnico idroltecnico) {
+    public void setIdroltecnico(String idroltecnico) {
         this.idroltecnico = idroltecnico;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

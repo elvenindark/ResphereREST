@@ -44,8 +44,8 @@ public class Roltecnico implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "roltecnico")
     private String roltecnico;
-    @OneToMany(mappedBy = "idroltecnico")
-    private List<Equipo> equipoList;
+    //@OneToMany(mappedBy = "idroltecnico")
+    //private List<Equipo> equipoList;
 
     public Roltecnico() {
     }
@@ -70,7 +70,7 @@ public class Roltecnico implements Serializable {
         this.roltecnico = roltecnico;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     @JsonIgnore
     public List<Equipo> getEquipoList() {
         return equipoList;
@@ -78,7 +78,7 @@ public class Roltecnico implements Serializable {
 
     public void setEquipoList(List<Equipo> equipoList) {
         this.equipoList = equipoList;
-    }
+    }*/
 
     @Override
     public int hashCode() {

@@ -247,27 +247,11 @@ public class EventoTest extends TestCase {
     /**
      * Test of getPoblacion method, of class Evento.
      */
-    public void testGetPoblacion() {
-        System.out.println("getPoblacion");
-        Evento instance = new Evento();
-        Poblacion expResult = null;
-        Poblacion result = instance.getPoblacion();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of setPoblacion method, of class Evento.
      */
-    public void testSetPoblacion() {
-        System.out.println("setPoblacion");
-        Poblacion poblacion = null;
-        Evento instance = new Evento();
-        instance.setPoblacion(poblacion);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+  
 
     /**
      * Test of getMediovida method, of class Evento.
@@ -572,27 +556,12 @@ public class EventoTest extends TestCase {
     /**
      * Test of getEquipo method, of class Evento.
      */
-    public void testGetEquipo() {
-        System.out.println("getEquipo");
-        Evento instance = new Evento();
-        Equipo expResult = null;
-        Equipo result = instance.getEquipo();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 
     /**
      * Test of setEquipo method, of class Evento.
      */
-    public void testSetEquipo() {
-        System.out.println("setEquipo");
-        Equipo equipo = null;
-        Evento instance = new Evento();
-        instance.setEquipo(equipo);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+  
 
     /**
      * Test of getEvaluacionList method, of class Evento.

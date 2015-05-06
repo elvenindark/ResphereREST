@@ -12,17 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -33,8 +28,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Poblacion.findAll", query = "SELECT p FROM Poblacion p"),
-    @NamedQuery(name = "Poblacion.findByIdevento", query = "SELECT p FROM Poblacion p WHERE p.idevento like :idevento"),
-    @NamedQuery(name = "Poblacion.findByNumero", query = "SELECT p FROM Poblacion p WHERE p.numero = :numero")})
+    @NamedQuery(name = "Poblacion.findByIdevento", query = "SELECT p FROM Poblacion p WHERE p.idevento = :idevento"),
+    @NamedQuery(name = "Poblacion.findByNumero", query = "SELECT p FROM Poblacion p WHERE p.numero = :numero"),
+    @NamedQuery(name = "Poblacion.findByIdtipopoblacion", query = "SELECT p FROM Poblacion p WHERE p.idtipopoblacion = :idtipopoblacion"),
+    @NamedQuery(name = "Poblacion.findByIdtipoafectacion", query = "SELECT p FROM Poblacion p WHERE p.idtipoafectacion = :idtipoafectacion")})
 public class Poblacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,20 +42,28 @@ public class Poblacion implements Serializable {
     private String idevento;
     @Column(name = "numero")
     private BigInteger numero;
-    @JoinColumn(name = "idtipopoblacion", referencedColumnName = "idtipopoblacion")
-    @ManyToOne(optional = false)
-    private Tipopoblacion idtipopoblacion;
-    @JoinColumn(name = "idtipoafectacion", referencedColumnName = "idtipoafectacion")
-    @ManyToOne(optional = false)
-    private Tipoafectacion idtipoafectacion;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "idtipopoblacion")
+    private String idtipopoblacion;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "idtipoafectacion")
+    private String idtipoafectacion;
 
     public Poblacion() {
     }
 
     public Poblacion(String idevento) {
+        this.idevento = idevento;
+    }
+
+    public Poblacion(String idevento, String idtipopoblacion, String idtipoafectacion) {
+        this.idevento = idevento;
+        this.idtipopoblacion = idtipopoblacion;
+        this.idtipoafectacion = idtipoafectacion;
         this.idevento = idevento;
     }
 
@@ -78,34 +83,20 @@ public class Poblacion implements Serializable {
         this.numero = numero;
     }
 
-    @XmlTransient
-    @JsonIgnore 
-    public Tipopoblacion getIdtipopoblacion() {
+    public String getIdtipopoblacion() {
         return idtipopoblacion;
     }
 
-    public void setIdtipopoblacion(Tipopoblacion idtipopoblacion) {
+    public void setIdtipopoblacion(String idtipopoblacion) {
         this.idtipopoblacion = idtipopoblacion;
     }
 
-    @XmlTransient
-    @JsonIgnore
-    public Tipoafectacion getIdtipoafectacion() {
+    public String getIdtipoafectacion() {
         return idtipoafectacion;
     }
 
-    public void setIdtipoafectacion(Tipoafectacion idtipoafectacion) {
+    public void setIdtipoafectacion(String idtipoafectacion) {
         this.idtipoafectacion = idtipoafectacion;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

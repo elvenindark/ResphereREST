@@ -7,20 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,9 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tipoafectacion.findByIdtipoafectacion", query = "SELECT t FROM Tipoafectacion t WHERE t.idtipoafectacion = :idtipoafectacion"),
     @NamedQuery(name = "Tipoafectacion.findByTipoafectacion", query = "SELECT t FROM Tipoafectacion t WHERE t.tipoafectacion = :tipoafectacion")})
 public class Tipoafectacion implements Serializable {
-    @Size(max = 2147483647)
-    @Column(name = "tipoafectacion")
-    private String tipoafectacion;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -44,8 +37,9 @@ public class Tipoafectacion implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "idtipoafectacion")
     private String idtipoafectacion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipoafectacion")
-    private List<Poblacion> poblacionList;
+    @Size(max = 2147483647)
+    @Column(name = "tipoafectacion")
+    private String tipoafectacion;
 
     public Tipoafectacion() {
     }
@@ -62,13 +56,12 @@ public class Tipoafectacion implements Serializable {
         this.idtipoafectacion = idtipoafectacion;
     }
 
-    @XmlTransient
-    public List<Poblacion> getPoblacionList() {
-        return poblacionList;
+    public String getTipoafectacion() {
+        return tipoafectacion;
     }
 
-    public void setPoblacionList(List<Poblacion> poblacionList) {
-        this.poblacionList = poblacionList;
+    public void setTipoafectacion(String tipoafectacion) {
+        this.tipoafectacion = tipoafectacion;
     }
 
     @Override
@@ -94,14 +87,6 @@ public class Tipoafectacion implements Serializable {
     @Override
     public String toString() {
         return "com.resphere.server.model.Tipoafectacion[ idtipoafectacion=" + idtipoafectacion + " ]";
-    }
-
-    public String getTipoafectacion() {
-        return tipoafectacion;
-    }
-
-    public void setTipoafectacion(String tipoafectacion) {
-        this.tipoafectacion = tipoafectacion;
     }
     
 }

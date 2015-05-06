@@ -40,14 +40,11 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Evento.findByAmenazas", query = "SELECT e FROM Evento e WHERE e.amenazas = :amenazas")})
 
 public class Evento implements Serializable{
-    //@OneToMany(mappedBy = "idevento")
-    //private List<Respuestahumanitaria> respuestahumanitariaList;
-   // @OneToMany(mappedBy = "idrespuesta")
-    //private List<Respuestahumanitaria> respuestahumanitariaList;
+    
    @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
     private Ubicacion ubicacion;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
-    private Equipo equipo;    
+    /*@OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
+    private Equipo equipo;*/    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
     private Comentario comentario;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
@@ -92,8 +89,8 @@ public class Evento implements Serializable{
     private Vivienda vivienda;    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
     private Mediovida mediovida;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
-    private Poblacion poblacion;     
+    //@OneToOne(cascade = CascadeType.ALL, mappedBy = "evento")
+    //private Poblacion poblacion;     
 //    @OneToMany(mappedBy = "idevento")
 //    private List<Ubicacion> ubicacionList;
     @OneToMany(mappedBy = "idevento")
@@ -191,7 +188,7 @@ public class Evento implements Serializable{
         this.hora = hora;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     @JsonIgnore
     public Poblacion getPoblacion() {
         return poblacion;
@@ -199,7 +196,7 @@ public class Evento implements Serializable{
 
     public void setPoblacion(Poblacion poblacion) {
         this.poblacion = poblacion;
-    }
+    }*/
 
     @XmlTransient
     @JsonIgnore
@@ -311,13 +308,13 @@ public class Evento implements Serializable{
         this.comentario = comentario;
     }
 
-    public Equipo getEquipo() {
+    /*public Equipo getEquipo() {
         return equipo;
     }
 
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
-    }
+    }*/
 
     @XmlTransient
     @JsonIgnore
