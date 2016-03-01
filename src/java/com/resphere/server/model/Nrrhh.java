@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Nrrhh.findAll", query = "SELECT n FROM Nrrhh n"),
     @NamedQuery(name = "Nrrhh.findByAplica", query = "SELECT n FROM Nrrhh n WHERE n.aplica = :aplica"),
     @NamedQuery(name = "Nrrhh.findByRequerimiento", query = "SELECT n FROM Nrrhh n WHERE n.requerimiento = :requerimiento"),
-    @NamedQuery(name = "Nrrhh.findByIdevento", query = "SELECT n FROM Nrrhh n WHERE n.idevento = :idevento")})
+    @NamedQuery(name = "Nrrhh.findByIdevento", query = "SELECT n FROM Nrrhh n WHERE n.idevento = :idevento"),
+    @NamedQuery(name = "Nrrhh.findByIdtiponrrhh", query = "SELECT n FROM Nrrhh n WHERE n.idtiponrrhh = :idtiponrrhh")})
 public class Nrrhh implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -47,12 +45,9 @@ public class Nrrhh implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idtiponrrhh", referencedColumnName = "idtiponrrhh")
-    @ManyToOne
-    private Tiponrrhh idtiponrrhh;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Size(max = 2147483647)
+    @Column(name = "idtiponrrhh")
+    private String idtiponrrhh;
 
     public Nrrhh() {
     }
@@ -85,20 +80,12 @@ public class Nrrhh implements Serializable {
         this.idevento = idevento;
     }
 
-    public Tiponrrhh getIdtiponrrhh() {
+    public String getIdtiponrrhh() {
         return idtiponrrhh;
     }
 
-    public void setIdtiponrrhh(Tiponrrhh idtiponrrhh) {
+    public void setIdtiponrrhh(String idtiponrrhh) {
         this.idtiponrrhh = idtiponrrhh;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

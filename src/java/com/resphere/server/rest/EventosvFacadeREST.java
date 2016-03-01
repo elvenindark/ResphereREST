@@ -67,6 +67,41 @@ public class EventosvFacadeREST extends AbstractFacade<Eventosv> {
     public List<Eventosv> findAll() {
         return super.findAll();
     }
+    
+    @GET
+    @Path("findAll/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Eventosv> findAllById(@PathParam("id") String id){
+    
+        if(id.toLowerCase().equals("monitoreo")){
+            javax.persistence.Query q = getEntityManager().createNamedQuery("Eventosv.findAllMonitoreo");     
+            return q.getResultList();
+        }else{
+            javax.persistence.Query q = getEntityManager().createNamedQuery("Eventosv.findByIdevento").setParameter("idevento", "%" + id + "%");
+            return q.getResultList();
+        }
+    }
+    
+    @GET
+    @Path("findAllMonitoreo")
+    @Produces({"application/xml", "application/json"})
+    public List<Eventosv> findAllMonitoreo(){
+//        javax.persistence.criteria.CriteriaQuery<Poblacion> cq = getEntityManager().getCriteriaBuilder().createQuery(Poblacion.class);
+//        javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+//        javax.persistence.criteria.Root<Poblacion> r = cq.from(Poblacion.class);
+//        //cq.select(cq.from(Poblacion.class));
+//       cq.select(cb)        
+        //System.out.println("testing");
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Eventosv.findAllMonitoreo");
+        
+        //javax.persistence.Query q = getEntityManager().createQuery("SELECT e FROM Eventosv e WHERE e.idevento in ( "
+        //    + "SELECT r.idevento FROM Respuestahumanitaria r WHERE r.idrespuesta in ("
+        //    + "SELECT m.idrespuesta from Monitoreorespuesta m))");
+        //List<Eventosv> personas = query.getResultList();
+        
+        //return query.getResultList();
+        return q.getResultList();
+    }
 
     @GET
     @Path("{from}/{to}")

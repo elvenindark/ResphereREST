@@ -7,20 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -44,8 +40,6 @@ public class Tipoimpacto implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(mappedBy = "idtipoimpacto")
-    private List<Impacto> impactoList;
 
     public Tipoimpacto() {
     }
@@ -68,16 +62,6 @@ public class Tipoimpacto implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Impacto> getImpactoList() {
-        return impactoList;
-    }
-
-    public void setImpactoList(List<Impacto> impactoList) {
-        this.impactoList = impactoList;
     }
 
     @Override

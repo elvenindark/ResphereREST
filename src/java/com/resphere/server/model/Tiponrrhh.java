@@ -7,20 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -44,8 +40,6 @@ public class Tiponrrhh implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "tiponrrhh")
     private String tiponrrhh;
-    @OneToMany(mappedBy = "idtiponrrhh")
-    private List<Nrrhh> nrrhhList;
 
     public Tiponrrhh() {
     }
@@ -68,16 +62,6 @@ public class Tiponrrhh implements Serializable {
 
     public void setTiponrrhh(String tiponrrhh) {
         this.tiponrrhh = tiponrrhh;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Nrrhh> getNrrhhList() {
-        return nrrhhList;
-    }
-
-    public void setNrrhhList(List<Nrrhh> nrrhhList) {
-        this.nrrhhList = nrrhhList;
     }
 
     @Override

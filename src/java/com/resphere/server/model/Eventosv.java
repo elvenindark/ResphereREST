@@ -26,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Eventosv.findAll", query = "SELECT e FROM Eventosv e"),
     @NamedQuery(name = "Eventosv.findByIdevento", query = "SELECT e FROM Eventosv e WHERE e.idevento = :idevento"),
+    @NamedQuery(name = "Eventosv.findAllMonitoreo", query = "SELECT e FROM Eventosv e WHERE e.idevento in ( "
+            + "SELECT r.idevento FROM Respuestahumanitaria r WHERE r.idrespuesta in ("
+            + "SELECT m.idrespuesta from Monitoreorespuesta m))"),
     @NamedQuery(name = "Eventosv.findByLongitud", query = "SELECT e FROM Eventosv e WHERE e.longitud = :longitud"),
     @NamedQuery(name = "Eventosv.findByLatitud", query = "SELECT e FROM Eventosv e WHERE e.latitud = :latitud"),
     @NamedQuery(name = "Eventosv.findByProvincia", query = "SELECT e FROM Eventosv e WHERE e.provincia = :provincia"),

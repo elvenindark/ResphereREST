@@ -7,21 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,20 +30,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tipodano.findByIdtipodano", query = "SELECT t FROM Tipodano t WHERE t.idtipodano = :idtipodano"),
     @NamedQuery(name = "Tipodano.findByTipodano", query = "SELECT t FROM Tipodano t WHERE t.tipodano = :tipodano")})
 public class Tipodano implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipodano")
-    private List<Servicio> servicioList;
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 2147483647)
     @Column(name = "idtipodano")
     private String idtipodano;
     @Size(max = 2147483647)
     @Column(name = "tipodano")
     private String tipodano;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtipodano")
-    private List<Mediovida> mediovidaList;
 
     public Tipodano() {
     }
@@ -71,15 +62,6 @@ public class Tipodano implements Serializable {
 
     public void setTipodano(String tipodano) {
         this.tipodano = tipodano;
-    }
-
-    @XmlTransient
-    public List<Mediovida> getMediovidaList() {
-        return mediovidaList;
-    }
-
-    public void setMediovidaList(List<Mediovida> mediovidaList) {
-        this.mediovidaList = mediovidaList;
     }
 
     @Override
@@ -105,15 +87,6 @@ public class Tipodano implements Serializable {
     @Override
     public String toString() {
         return "com.resphere.server.model.Tipodano[ idtipodano=" + idtipodano + " ]";
-    }
-
-    @XmlTransient
-    public List<Servicio> getServicioList() {
-        return servicioList;
-    }
-
-    public void setServicioList(List<Servicio> servicioList) {
-        this.servicioList = servicioList;
     }
     
 }

@@ -7,22 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -36,7 +30,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Organizacion.findByNombre", query = "SELECT o FROM Organizacion o WHERE o.nombre = :nombre"),
     @NamedQuery(name = "Organizacion.findBySector", query = "SELECT o FROM Organizacion o WHERE o.sector = :sector"),
     @NamedQuery(name = "Organizacion.findByContacto", query = "SELECT o FROM Organizacion o WHERE o.contacto = :contacto"),
-    @NamedQuery(name = "Organizacion.findByIdorganizacion", query = "SELECT o FROM Organizacion o WHERE o.idorganizacion = :idorganizacion")})
+    @NamedQuery(name = "Organizacion.findByIdorganizacion", query = "SELECT o FROM Organizacion o WHERE o.idorganizacion = :idorganizacion"),
+    @NamedQuery(name = "Organizacion.findByIdevento", query = "SELECT o FROM Organizacion o WHERE o.idevento = :idevento")})
 public class Organizacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -54,9 +49,9 @@ public class Organizacion implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "idorganizacion")
     private String idorganizacion;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento")
-    @ManyToOne
-    private Evento idevento;
+    @Size(max = 20)
+    @Column(name = "idevento")
+    private String idevento;
 
     public Organizacion() {
     }
@@ -97,11 +92,11 @@ public class Organizacion implements Serializable {
         this.idorganizacion = idorganizacion;
     }
 
-    public Evento getIdevento() {
+    public String getIdevento() {
         return idevento;
     }
 
-    public void setIdevento(Evento idevento) {
+    public void setIdevento(String idevento) {
         this.idevento = idevento;
     }
 

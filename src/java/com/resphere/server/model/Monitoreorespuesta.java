@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Monitoreorespuesta.findAll", query = "SELECT m FROM Monitoreorespuesta m"),
     @NamedQuery(name = "Monitoreorespuesta.findByObservacion", query = "SELECT m FROM Monitoreorespuesta m WHERE m.observacion = :observacion"),
+    @NamedQuery(name = "Monitoreorespuesta.findByIds", query = "SELECT p FROM Monitoreorespuesta p WHERE p.idrespuesta in (SELECT q.idrespuesta FROM Respuestahumanitaria q WHERE q.idevento = :idevento and q.idindicadorclave in (select i.idindicadorclave from Indicadorclave i where i.idsectorhumanitario.idsectorhumanitario = :idsectorhumanitario))"),
     @NamedQuery(name = "Monitoreorespuesta.findByCumple", query = "SELECT m FROM Monitoreorespuesta m WHERE m.cumple = :cumple"),
     @NamedQuery(name = "Monitoreorespuesta.findByIdrespuesta", query = "SELECT m FROM Monitoreorespuesta m WHERE m.idrespuesta = :idrespuesta")})
 public class Monitoreorespuesta implements Serializable {

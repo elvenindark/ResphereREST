@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "poblacion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Poblacion.findAll", query = "SELECT p FROM Poblacion p"),
-    @NamedQuery(name = "Poblacion.findByIdevento", query = "SELECT p FROM Poblacion p WHERE p.idevento = :idevento"),
+    @NamedQuery(name = "Poblacion.findAll", query = "SELECT DISTINCT p FROM Poblacion p"),
+    @NamedQuery(name = "Poblacion.findByIdevento", query = "SELECT p FROM Poblacion p WHERE p.idevento like :idevento"),
     @NamedQuery(name = "Poblacion.findByNumero", query = "SELECT p FROM Poblacion p WHERE p.numero = :numero"),
     @NamedQuery(name = "Poblacion.findByIdtipopoblacion", query = "SELECT p FROM Poblacion p WHERE p.idtipopoblacion = :idtipopoblacion"),
     @NamedQuery(name = "Poblacion.findByIdtipoafectacion", query = "SELECT p FROM Poblacion p WHERE p.idtipoafectacion = :idtipoafectacion")})
@@ -40,13 +40,17 @@ public class Poblacion implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
+    //aumentamos id para no repetidos en clave foranea
+    @Id
     @Column(name = "numero")
     private BigInteger numero;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "idtipopoblacion")
     private String idtipopoblacion;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)

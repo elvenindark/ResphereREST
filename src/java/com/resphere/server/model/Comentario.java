@@ -11,10 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -41,17 +39,14 @@ public class Comentario implements Serializable {
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
-    private String idevento;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    private String idevento;    
 
     public Comentario() {
     }
 
     public Comentario(String idevento) {
         this.idevento = idevento;
-    }
+    }    
 
     public String getComentario() {
         return comentario;
@@ -68,15 +63,7 @@ public class Comentario implements Serializable {
     public void setIdevento(String idevento) {
         this.idevento = idevento;
     }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-
+   
     @Override
     public int hashCode() {
         int hash = 0;

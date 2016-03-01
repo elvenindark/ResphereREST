@@ -83,12 +83,22 @@ public class PoblacionFacadeREST extends AbstractFacade<Poblacion> {
 //        javax.persistence.criteria.CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
 //        javax.persistence.criteria.Root<Poblacion> r = cq.from(Poblacion.class);
 //        //cq.select(cq.from(Poblacion.class));
-//       cq.select(cb)
-        
-        
-        javax.persistence.Query q = getEntityManager().createNamedQuery("Poblacion.findByIdevento").setParameter("idevento", id);
+//       cq.select(cb)        
+        javax.persistence.Query q = getEntityManager().createNamedQuery("Poblacion.findByIdevento").setParameter("idevento", "%" + id + "%");
         System.out.println(q.getResultList().size());
-        return q.getResultList();
+        javax.persistence.Query query = getEntityManager().createQuery("SELECT p FROM Poblacion p WHERE p.idevento like :idevento").setParameter("idevento", "%" + id + "%");
+        List<Poblacion> personas = query.getResultList();
+        for(int i = 0; i < personas.size(); i++)
+            System.out.println(personas.get(i).getNumero());
+        return query.getResultList();
+        //return q.getResultList();
+    }
+    
+    @GET
+    @Path("findAllById/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Poblacion> findAll(@PathParam("id") String id){
+        return null;
     }
 
     @GET

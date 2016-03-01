@@ -7,21 +7,16 @@
 package com.resphere.server.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -45,8 +40,6 @@ public class Tiposalud implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "tiposalud")
     private String tiposalud;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtiposalud")
-    private List<Salud> saludList;
 
     public Tiposalud() {
     }
@@ -69,16 +62,6 @@ public class Tiposalud implements Serializable {
 
     public void setTiposalud(String tiposalud) {
         this.tiposalud = tiposalud;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Salud> getSaludList() {
-        return saludList;
-    }
-
-    public void setSaludList(List<Salud> saludList) {
-        this.saludList = saludList;
     }
 
     @Override

@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Nrecuperacion.findAll", query = "SELECT n FROM Nrecuperacion n"),
     @NamedQuery(name = "Nrecuperacion.findByAplica", query = "SELECT n FROM Nrecuperacion n WHERE n.aplica = :aplica"),
     @NamedQuery(name = "Nrecuperacion.findByObservacion", query = "SELECT n FROM Nrecuperacion n WHERE n.observacion = :observacion"),
-    @NamedQuery(name = "Nrecuperacion.findByIdevento", query = "SELECT n FROM Nrecuperacion n WHERE n.idevento = :idevento")})
+    @NamedQuery(name = "Nrecuperacion.findByIdevento", query = "SELECT n FROM Nrecuperacion n WHERE n.idevento = :idevento"),
+    @NamedQuery(name = "Nrecuperacion.findByIdtiposector", query = "SELECT n FROM Nrecuperacion n WHERE n.idtiposector = :idtiposector")})
 public class Nrecuperacion implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -47,12 +45,9 @@ public class Nrecuperacion implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idtiposector", referencedColumnName = "idtiposector")
-    @ManyToOne
-    private Tiposector idtiposector;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Size(max = 2147483647)
+    @Column(name = "idtiposector")
+    private String idtiposector;
 
     public Nrecuperacion() {
     }
@@ -85,23 +80,15 @@ public class Nrecuperacion implements Serializable {
         this.idevento = idevento;
     }
 
-    public Tiposector getIdtiposector() {
+    public String getIdtiposector() {
         return idtiposector;
     }
 
-    public void setIdtiposector(Tiposector idtiposector) {
+    public void setIdtiposector(String idtiposector) {
         this.idtiposector = idtiposector;
     }
 
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
-
-    @Override
+   @Override
     public int hashCode() {
         int hash = 0;
         hash += (idevento != null ? idevento.hashCode() : 0);

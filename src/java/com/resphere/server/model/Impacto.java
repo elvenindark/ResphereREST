@@ -11,17 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -32,7 +27,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Impacto.findAll", query = "SELECT i FROM Impacto i"),
-    @NamedQuery(name = "Impacto.findByIdevento", query = "SELECT i FROM Impacto i WHERE i.idevento = :idevento")})
+    @NamedQuery(name = "Impacto.findByIdevento", query = "SELECT i FROM Impacto i WHERE i.idevento = :idevento"),
+    @NamedQuery(name = "Impacto.findByIdtipoimpacto", query = "SELECT i FROM Impacto i WHERE i.idtipoimpacto = :idtipoimpacto")})
 public class Impacto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,12 +37,9 @@ public class Impacto implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idtipoimpacto", referencedColumnName = "idtipoimpacto")
-    @ManyToOne
-    private Tipoimpacto idtipoimpacto;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Size(max = 2147483647)
+    @Column(name = "idtipoimpacto")
+    private String idtipoimpacto;
 
     public Impacto() {
     }
@@ -63,22 +56,12 @@ public class Impacto implements Serializable {
         this.idevento = idevento;
     }
 
-    public Tipoimpacto getIdtipoimpacto() {
+    public String getIdtipoimpacto() {
         return idtipoimpacto;
     }
 
-    public void setIdtipoimpacto(Tipoimpacto idtipoimpacto) {
+    public void setIdtipoimpacto(String idtipoimpacto) {
         this.idtipoimpacto = idtipoimpacto;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

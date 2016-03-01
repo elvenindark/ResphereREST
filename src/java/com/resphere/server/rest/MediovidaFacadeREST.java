@@ -82,6 +82,15 @@ public class MediovidaFacadeREST extends AbstractFacade<Mediovida> {
     public List<Mediovida> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
+    
+    @GET
+    @Path("findAll/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Mediovida>  findAllById(@PathParam("id") String id){
+        javax.persistence.Query query = getEntityManager().createQuery("SELECT p FROM Mediovida p WHERE p.idevento like :idevento").setParameter("idevento", "%" + id + "%");
+        List<Mediovida> medios = query.getResultList();
+        return medios;
+    }
 
     @GET
     @Path("count")

@@ -38,7 +38,10 @@ public class EventoFacadeREST extends AbstractFacade<Evento> {
     @Override
     @Consumes({"application/xml", "application/json"})
     public void create(Evento entity) {
-        super.create(entity);
+        if(find(entity.getIdevento()) != null)
+            edit(entity.getIdevento(), entity);
+        else
+            super.create(entity);
     }
 
     @POST

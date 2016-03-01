@@ -70,6 +70,19 @@ public class RespuestabysectorvFacadeREST extends AbstractFacade<Respuestabysect
     @Produces({"application/xml", "application/json"})
     public Respuestabysectorv find(@PathParam("id") String id) {
         return super.find(id);
+       
+    }
+    
+     @GET
+    @Path("findAll/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Respuestabysectorv> findAllById(@PathParam("id") String idevento) {
+        
+        List<Respuestabysectorv> respuesta = getEntityManager().createNamedQuery("Respuestabysectorv.findByIdevento").setParameter("idevento", idevento).getResultList();       
+        if(respuesta!=null)
+            return respuesta;
+        else
+            return null;
     }
 
     @GET

@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,18 +29,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Mediovida.findAll", query = "SELECT m FROM Mediovida m"),
     @NamedQuery(name = "Mediovida.findBySiaplica", query = "SELECT m FROM Mediovida m WHERE m.siaplica = :siaplica"),
     @NamedQuery(name = "Mediovida.findByObservacion", query = "SELECT m FROM Mediovida m WHERE m.observacion = :observacion"),
-    @NamedQuery(name = "Mediovida.findByIdevento", query = "SELECT m FROM Mediovida m WHERE m.idevento = :idevento")})
+    @NamedQuery(name = "Mediovida.findByIdevento", query = "SELECT m FROM Mediovida m WHERE m.idevento = :idevento"),
+    @NamedQuery(name = "Mediovida.findByHombres", query = "SELECT m FROM Mediovida m WHERE m.hombres = :hombres"),
+    @NamedQuery(name = "Mediovida.findByMujeres", query = "SELECT m FROM Mediovida m WHERE m.mujeres = :mujeres"),
+    @NamedQuery(name = "Mediovida.findByIdtipomediovida", query = "SELECT m FROM Mediovida m WHERE m.idtipomediovida = :idtipomediovida"),
+    @NamedQuery(name = "Mediovida.findByIdtipodano", query = "SELECT m FROM Mediovida m WHERE m.idtipodano = :idtipodano")})
 public class Mediovida implements Serializable {
-    @Size(max = 2147483647)
-    @Column(name = "hombres")
-    private String hombres;
-    @Size(max = 2147483647)
-    @Column(name = "mujeres")
-    private String mujeres;
     private static final long serialVersionUID = 1L;
+    //aumentamos id para no repetidos en clave foranea
+    @Id
     @Size(max = 2147483647)
     @Column(name = "siaplica")
     private String siaplica;
+    @Id
     @Size(max = 2147483647)
     @Column(name = "observacion")
     private String observacion;
@@ -53,15 +51,23 @@ public class Mediovida implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idtipomediovida", referencedColumnName = "idtipomediovida")
-    @ManyToOne(optional = false)
-    private Tipomediovida idtipomediovida;
-    @JoinColumn(name = "idtipodano", referencedColumnName = "idtipodano")
-    @ManyToOne(optional = false)
-    private Tipodano idtipodano;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Id
+    @Size(max = 2147483647)
+    @Column(name = "hombres")
+    private String hombres;
+    @Id
+    @Size(max = 2147483647)
+    @Column(name = "mujeres")
+    private String mujeres;
+    @Id
+    @Size(max = 2147483647)
+    @Column(name = "idtipomediovida")
+    private String idtipomediovida;
+    @Id
+    @Size(max = 2147483647)
+    @Column(name = "idtipodano")
+    private String idtipodano;
+   
 
     public Mediovida() {
     }
@@ -94,36 +100,36 @@ public class Mediovida implements Serializable {
         this.idevento = idevento;
     }
 
-//    public Tipopoblacion getIdtipopoblacion() {
-//        return idtipopoblacion;
-//    }
-//
-//    public void setIdtipopoblacion(Tipopoblacion idtipopoblacion) {
-//        this.idtipopoblacion = idtipopoblacion;
-//    }
+    public String getHombres() {
+        return hombres;
+    }
 
-    public Tipomediovida getIdtipomediovida() {
+    public void setHombres(String hombres) {
+        this.hombres = hombres;
+    }
+
+    public String getMujeres() {
+        return mujeres;
+    }
+
+    public void setMujeres(String mujeres) {
+        this.mujeres = mujeres;
+    }
+
+    public String getIdtipomediovida() {
         return idtipomediovida;
     }
 
-    public void setIdtipomediovida(Tipomediovida idtipomediovida) {
+    public void setIdtipomediovida(String idtipomediovida) {
         this.idtipomediovida = idtipomediovida;
     }
 
-    public Tipodano getIdtipodano() {
+    public String getIdtipodano() {
         return idtipodano;
     }
 
-    public void setIdtipodano(Tipodano idtipodano) {
+    public void setIdtipodano(String idtipodano) {
         this.idtipodano = idtipodano;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override
@@ -149,22 +155,6 @@ public class Mediovida implements Serializable {
     @Override
     public String toString() {
         return "com.resphere.server.model.Mediovida[ idevento=" + idevento + " ]";
-    }
-
-    public String getHombres() {
-        return hombres;
-    }
-
-    public void setHombres(String hombres) {
-        this.hombres = hombres;
-    }
-
-    public String getMujeres() {
-        return mujeres;
-    }
-
-    public void setMujeres(String mujeres) {
-        this.mujeres = mujeres;
     }
     
 }

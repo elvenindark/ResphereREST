@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.resphere.server.model;
 
 import java.io.Serializable;
@@ -25,16 +24,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Respuestabysectorv.findAll", query = "SELECT r FROM Respuestabysectorv r"),
+    @NamedQuery(name = "Respuestabysectorv.findByIdrespuesta", query = "SELECT r FROM Respuestabysectorv r WHERE r.idrespuesta = :idrespuesta"),
     @NamedQuery(name = "Respuestabysectorv.findByIdevento", query = "SELECT r FROM Respuestabysectorv r WHERE r.idevento = :idevento"),
     @NamedQuery(name = "Respuestabysectorv.findByIds", query = "SELECT r FROM Respuestabysectorv r WHERE r.idevento = :idevento and r.idsectorhumanitario =:idsectorhumanitario"),
     @NamedQuery(name = "Respuestabysectorv.findByIdindicadorclave", query = "SELECT r FROM Respuestabysectorv r WHERE r.idindicadorclave = :idindicadorclave"),
     @NamedQuery(name = "Respuestabysectorv.findByObservacion", query = "SELECT r FROM Respuestabysectorv r WHERE r.observacion = :observacion"),
-    @NamedQuery(name = "Respuestabysectorv.findByIdsectorhumanitario", query = "SELECT r FROM Respuestabysectorv r WHERE r.idsectorhumanitario = :idsectorhumanitario")})
+    @NamedQuery(name = "Respuestabysectorv.findByIdsectorhumanitario", query = "SELECT r FROM Respuestabysectorv r WHERE r.idsectorhumanitario = :idsectorhumanitario"),
+    @NamedQuery(name = "Respuestabysectorv.findByIndicadorclave", query = "SELECT r FROM Respuestabysectorv r WHERE r.indicadorclave = :indicadorclave")})
 public class Respuestabysectorv implements Serializable {
-    @Id
+    private static final long serialVersionUID = 1L;
+    @Id    
     @Column(name = "idrespuesta")
     private Integer idrespuesta;
-    private static final long serialVersionUID = 1L;    
     @Size(max = 20)
     @Column(name = "idevento")
     private String idevento;
@@ -46,8 +47,19 @@ public class Respuestabysectorv implements Serializable {
     private String observacion;
     @Column(name = "idsectorhumanitario")
     private Integer idsectorhumanitario;
+    @Size(max = 2147483647)
+    @Column(name = "indicadorclave")
+    private String indicadorclave;
 
     public Respuestabysectorv() {
+    }
+
+    public Integer getIdrespuesta() {
+        return idrespuesta;
+    }
+
+    public void setIdrespuesta(Integer idrespuesta) {
+        this.idrespuesta = idrespuesta;
     }
 
     public String getIdevento() {
@@ -82,12 +94,12 @@ public class Respuestabysectorv implements Serializable {
         this.idsectorhumanitario = idsectorhumanitario;
     }
 
-    public Integer getIdrespuesta() {
-        return idrespuesta;
+    public String getIndicadorclave() {
+        return indicadorclave;
     }
 
-    public void setIdrespuesta(Integer idrespuesta) {
-        this.idrespuesta = idrespuesta;
+    public void setIndicadorclave(String indicadorclave) {
+        this.indicadorclave = indicadorclave;
     }
     
 }

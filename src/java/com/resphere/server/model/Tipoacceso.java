@@ -11,15 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -47,9 +44,7 @@ public class Tipoacceso implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "idevento")
     private String idevento;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Acceso acceso;
+    
 
     public Tipoacceso() {
     }
@@ -80,15 +75,6 @@ public class Tipoacceso implements Serializable {
 
     public void setIdevento(String idevento) {
         this.idevento = idevento;
-    }
-
-    @XmlTransient
-    public Acceso getAcceso() {
-        return acceso;
-    }
-
-    public void setAcceso(Acceso acceso) {
-        this.acceso = acceso;
     }
 
     @Override

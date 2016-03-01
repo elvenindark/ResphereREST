@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Salud.findBySifunciona", query = "SELECT s FROM Salud s WHERE s.sifunciona = :sifunciona"),
     @NamedQuery(name = "Salud.findByObservaciones", query = "SELECT s FROM Salud s WHERE s.observaciones = :observaciones"),
     @NamedQuery(name = "Salud.findByIdevento", query = "SELECT s FROM Salud s WHERE s.idevento = :idevento"),
-    @NamedQuery(name = "Salud.findByPorcentaje", query = "SELECT s FROM Salud s WHERE s.porcentaje = :porcentaje")})
+    @NamedQuery(name = "Salud.findByPorcentaje", query = "SELECT s FROM Salud s WHERE s.porcentaje = :porcentaje"),
+    @NamedQuery(name = "Salud.findByIdtiposalud", query = "SELECT s FROM Salud s WHERE s.idtiposalud = :idtiposalud")})
 public class Salud implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 2147483647)
@@ -51,12 +49,12 @@ public class Salud implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "porcentaje")
     private String porcentaje;
-    @JoinColumn(name = "idtiposalud", referencedColumnName = "idtiposalud")
-    @ManyToOne(optional = false)
-    private Tiposalud idtiposalud;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "idtiposalud")
+    private String idtiposalud;
+    
 
     public Salud() {
     }
@@ -97,20 +95,12 @@ public class Salud implements Serializable {
         this.porcentaje = porcentaje;
     }
 
-    public Tiposalud getIdtiposalud() {
+    public String getIdtiposalud() {
         return idtiposalud;
     }
 
-    public void setIdtiposalud(Tiposalud idtiposalud) {
+    public void setIdtiposalud(String idtiposalud) {
         this.idtiposalud = idtiposalud;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

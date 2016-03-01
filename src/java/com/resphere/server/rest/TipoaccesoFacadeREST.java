@@ -74,6 +74,14 @@ public class TipoaccesoFacadeREST extends AbstractFacade<Tipoacceso> {
     public List<Tipoacceso> findAll() {
         return super.findAll();
     }
+    
+    @GET
+    @Path("findAll/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Tipoacceso> findAllById(@PathParam("id") String id){
+        javax.persistence.Query query = getEntityManager().createQuery("SELECT p FROM Tipoacceso p WHERE p.idevento like :idevento").setParameter("idevento", "%" + id + "%");
+        return query.getResultList();
+    }
 
     @GET
     @Path("{from}/{to}")

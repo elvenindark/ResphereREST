@@ -11,11 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Nurgente.findAll", query = "SELECT n FROM Nurgente n"),
     @NamedQuery(name = "Nurgente.findByIdevento", query = "SELECT n FROM Nurgente n WHERE n.idevento = :idevento"),
     @NamedQuery(name = "Nurgente.findByNumero", query = "SELECT n FROM Nurgente n WHERE n.numero = :numero"),
-    @NamedQuery(name = "Nurgente.findByEspecificacion", query = "SELECT n FROM Nurgente n WHERE n.especificacion = :especificacion")})
+    @NamedQuery(name = "Nurgente.findByEspecificacion", query = "SELECT n FROM Nurgente n WHERE n.especificacion = :especificacion"),
+    @NamedQuery(name = "Nurgente.findByIdtipourgente", query = "SELECT n FROM Nurgente n WHERE n.idtipourgente = :idtipourgente")})
 public class Nurgente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,12 +45,10 @@ public class Nurgente implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "especificacion")
     private String especificacion;
-    @JoinColumn(name = "idtipourgente", referencedColumnName = "idtipourgente")
-    @ManyToOne
-    private Tiponurgente idtipourgente;
-    @JoinColumn(name = "idevento", referencedColumnName = "idevento", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Evento evento;
+    @Size(max = 2147483647)
+    @Column(name = "idtipourgente")
+    private String idtipourgente;
+   
 
     public Nurgente() {
     }
@@ -85,20 +81,12 @@ public class Nurgente implements Serializable {
         this.especificacion = especificacion;
     }
 
-    public Tiponurgente getIdtipourgente() {
+    public String getIdtipourgente() {
         return idtipourgente;
     }
 
-    public void setIdtipourgente(Tiponurgente idtipourgente) {
+    public void setIdtipourgente(String idtipourgente) {
         this.idtipourgente = idtipourgente;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     @Override

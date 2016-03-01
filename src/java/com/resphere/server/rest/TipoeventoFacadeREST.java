@@ -37,7 +37,7 @@ public class TipoeventoFacadeREST extends AbstractFacade<Tipoevento> {
     @POST
     @Override
     @Consumes({"application/xml", "application/json"})
-    public void create(Tipoevento entity) {
+    public void create(Tipoevento entity) {        
         super.create(entity);
     }
     
